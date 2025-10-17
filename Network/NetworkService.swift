@@ -11,6 +11,7 @@ class APIService {
     // MARK: - Singleton
     static let shared = APIService()
     private let session: URLSession
+    private let baseURL = "https://api.coingecko.com/api/v3"
     
     // MARK: - Initialization
     private init() {
@@ -22,7 +23,8 @@ class APIService {
     
     // MARK: - GET
     func get<T: Codable>(endpoint: String, responseModel: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: endpoint) else {
+        let fullURL = endpoint.hasPrefix("http") ? endpoint : "\(baseURL)/\(endpoint)"
+        guard let url = URL(string: fullURL) else {
             completion(.failure(APIError.invalidURL))
             return
         }
@@ -34,7 +36,8 @@ class APIService {
     
     // MARK: - POST
     func post<T: Codable>(endpoint: String, payload: [String: Any]? = nil, responseModel: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: endpoint) else {
+        let fullURL = endpoint.hasPrefix("http") ? endpoint : "\(baseURL)/\(endpoint)"
+        guard let url = URL(string: fullURL) else {
             completion(.failure(APIError.invalidURL))
             return
         }
@@ -59,7 +62,8 @@ class APIService {
     
     // MARK: - PUT
     func put<T: Codable>(endpoint: String, payload: [String: Any]? = nil, responseModel: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: endpoint) else {
+        let fullURL = endpoint.hasPrefix("http") ? endpoint : "\(baseURL)/\(endpoint)"
+        guard let url = URL(string: fullURL) else {
             completion(.failure(APIError.invalidURL))
             return
         }
@@ -84,7 +88,8 @@ class APIService {
     
     // MARK: - DELETE
     func delete<T: Codable>(endpoint: String, responseModel: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: endpoint) else {
+        let fullURL = endpoint.hasPrefix("http") ? endpoint : "\(baseURL)/\(endpoint)"
+        guard let url = URL(string: fullURL) else {
             completion(.failure(APIError.invalidURL))
             return
         }

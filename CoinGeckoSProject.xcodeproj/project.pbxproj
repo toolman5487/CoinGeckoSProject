@@ -15,6 +15,9 @@
 		151D78642E9FED7F0050B47C /* MainCryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D78632E9FED7F0050B47C /* MainCryptoView.swift */; };
 		15426DAB2E9E9828006CB6CF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15426DAA2E9E9828006CB6CF /* NetworkService.swift */; };
 		15426DAE2E9E985D006CB6CF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 15426DAD2E9E985D006CB6CF /* Alamofire */; };
+		15AEF7992EA28FF3000ABDAB /* CryptoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AEF7982EA28FF3000ABDAB /* CryptoDetailView.swift */; };
+		15AEF79E2EA294D2000ABDAB /* CryptoDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AEF79D2EA294D2000ABDAB /* CryptoDetailModel.swift */; };
+		15AEF7A12EA295A4000ABDAB /* CryptoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AEF7A02EA295A4000ABDAB /* CryptoDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		151D78632E9FED7F0050B47C /* MainCryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCryptoView.swift; sourceTree = "<group>"; };
 		15426D9B2E9E87B9006CB6CF /* CoinGeckoSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinGeckoSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15426DAA2E9E9828006CB6CF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		15AEF7982EA28FF3000ABDAB /* CryptoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailView.swift; sourceTree = "<group>"; };
+		15AEF79D2EA294D2000ABDAB /* CryptoDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailModel.swift; sourceTree = "<group>"; };
+		15AEF7A02EA295A4000ABDAB /* CryptoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -83,6 +89,7 @@
 		15426D922E9E87B9006CB6CF = {
 			isa = PBXGroup;
 			children = (
+				15AEF79A2EA29495000ABDAB /* CryptoDetailPage */,
 				151D78622E9FED6A0050B47C /* CryptoPage */,
 				151D785F2E9FEBA40050B47C /* MyPage */,
 				151D785A2E9FE4AE0050B47C /* TabBar */,
@@ -107,6 +114,40 @@
 				15426DAA2E9E9828006CB6CF /* NetworkService.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		15AEF79A2EA29495000ABDAB /* CryptoDetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				15AEF79F2EA2958F000ABDAB /* ViewModel */,
+				15AEF79C2EA294B2000ABDAB /* View */,
+				15AEF79B2EA294AB000ABDAB /* Model */,
+			);
+			path = CryptoDetailPage;
+			sourceTree = "<group>";
+		};
+		15AEF79B2EA294AB000ABDAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				15AEF79D2EA294D2000ABDAB /* CryptoDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		15AEF79C2EA294B2000ABDAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				15AEF7982EA28FF3000ABDAB /* CryptoDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		15AEF79F2EA2958F000ABDAB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				15AEF7A02EA295A4000ABDAB /* CryptoDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,8 +232,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15AEF7992EA28FF3000ABDAB /* CryptoDetailView.swift in Sources */,
 				15426DAB2E9E9828006CB6CF /* NetworkService.swift in Sources */,
 				151D78642E9FED7F0050B47C /* MainCryptoView.swift in Sources */,
+				15AEF79E2EA294D2000ABDAB /* CryptoDetailModel.swift in Sources */,
+				15AEF7A12EA295A4000ABDAB /* CryptoDetailViewModel.swift in Sources */,
 				151D785C2E9FE9870050B47C /* MainTabBarView.swift in Sources */,
 				151D785E2E9FEB7F0050B47C /* MainHomeView.swift in Sources */,
 				151D78612E9FEBB90050B47C /* MainMyView.swift in Sources */,
