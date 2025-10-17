@@ -11,7 +11,8 @@ import SwiftUI
 struct CoinGeckoSProjectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabBarView()
         }
     }
 }
+

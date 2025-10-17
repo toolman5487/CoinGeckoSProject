@@ -6,8 +6,24 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		151D78552E9FE47C0050B47C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 151D78542E9FE47C0050B47C /* SnapKit */; };
+		151D78582E9FE48E0050B47C /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 151D78572E9FE48E0050B47C /* SDWebImage */; };
+		151D785C2E9FE9870050B47C /* MainTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D785B2E9FE9870050B47C /* MainTabBarView.swift */; };
+		151D785E2E9FEB7F0050B47C /* MainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D785D2E9FEB7F0050B47C /* MainHomeView.swift */; };
+		151D78612E9FEBB90050B47C /* MainMyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D78602E9FEBB90050B47C /* MainMyView.swift */; };
+		151D78642E9FED7F0050B47C /* MainCryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D78632E9FED7F0050B47C /* MainCryptoView.swift */; };
+		15426DAB2E9E9828006CB6CF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15426DAA2E9E9828006CB6CF /* NetworkService.swift */; };
+		15426DAE2E9E985D006CB6CF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 15426DAD2E9E985D006CB6CF /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		151D785B2E9FE9870050B47C /* MainTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarView.swift; sourceTree = "<group>"; };
+		151D785D2E9FEB7F0050B47C /* MainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeView.swift; sourceTree = "<group>"; };
+		151D78602E9FEBB90050B47C /* MainMyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMyView.swift; sourceTree = "<group>"; };
+		151D78632E9FED7F0050B47C /* MainCryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCryptoView.swift; sourceTree = "<group>"; };
 		15426D9B2E9E87B9006CB6CF /* CoinGeckoSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinGeckoSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		15426DAA2E9E9828006CB6CF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,15 +39,55 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151D78582E9FE48E0050B47C /* SDWebImage in Frameworks */,
+				15426DAE2E9E985D006CB6CF /* Alamofire in Frameworks */,
+				151D78552E9FE47C0050B47C /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		151D78592E9FE4A30050B47C /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				151D785D2E9FEB7F0050B47C /* MainHomeView.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		151D785A2E9FE4AE0050B47C /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				151D785B2E9FE9870050B47C /* MainTabBarView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		151D785F2E9FEBA40050B47C /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				151D78602E9FEBB90050B47C /* MainMyView.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		151D78622E9FED6A0050B47C /* CryptoPage */ = {
+			isa = PBXGroup;
+			children = (
+				151D78632E9FED7F0050B47C /* MainCryptoView.swift */,
+			);
+			path = CryptoPage;
+			sourceTree = "<group>";
+		};
 		15426D922E9E87B9006CB6CF = {
 			isa = PBXGroup;
 			children = (
+				151D78622E9FED6A0050B47C /* CryptoPage */,
+				151D785F2E9FEBA40050B47C /* MyPage */,
+				151D785A2E9FE4AE0050B47C /* TabBar */,
+				151D78592E9FE4A30050B47C /* HomePage */,
+				15426DA92E9E9803006CB6CF /* Network */,
 				15426D9D2E9E87B9006CB6CF /* CoinGeckoSProject */,
 				15426D9C2E9E87B9006CB6CF /* Products */,
 			);
@@ -43,6 +99,14 @@
 				15426D9B2E9E87B9006CB6CF /* CoinGeckoSProject.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		15426DA92E9E9803006CB6CF /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				15426DAA2E9E9828006CB6CF /* NetworkService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +129,9 @@
 			);
 			name = CoinGeckoSProject;
 			packageProductDependencies = (
+				15426DAD2E9E985D006CB6CF /* Alamofire */,
+				151D78542E9FE47C0050B47C /* SnapKit */,
+				151D78572E9FE48E0050B47C /* SDWebImage */,
 			);
 			productName = CoinGeckoSProject;
 			productReference = 15426D9B2E9E87B9006CB6CF /* CoinGeckoSProject.app */;
@@ -94,6 +161,11 @@
 			);
 			mainGroup = 15426D922E9E87B9006CB6CF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				15426DAC2E9E985D006CB6CF /* XCRemoteSwiftPackageReference "Alamofire" */,
+				151D78532E9FE47C0050B47C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				151D78562E9FE48E0050B47C /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 15426D9C2E9E87B9006CB6CF /* Products */;
 			projectDirPath = "";
@@ -119,6 +191,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15426DAB2E9E9828006CB6CF /* NetworkService.swift in Sources */,
+				151D78642E9FED7F0050B47C /* MainCryptoView.swift in Sources */,
+				151D785C2E9FE9870050B47C /* MainTabBarView.swift in Sources */,
+				151D785E2E9FEB7F0050B47C /* MainHomeView.swift in Sources */,
+				151D78612E9FEBB90050B47C /* MainMyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +409,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		151D78532E9FE47C0050B47C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		151D78562E9FE48E0050B47C /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.3;
+			};
+		};
+		15426DAC2E9E985D006CB6CF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		151D78542E9FE47C0050B47C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 151D78532E9FE47C0050B47C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		151D78572E9FE48E0050B47C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 151D78562E9FE48E0050B47C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		15426DAD2E9E985D006CB6CF /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15426DAC2E9E985D006CB6CF /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 15426D932E9E87B9006CB6CF /* Project object */;
 }
