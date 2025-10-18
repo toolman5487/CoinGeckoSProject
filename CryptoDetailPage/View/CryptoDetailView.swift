@@ -44,10 +44,10 @@ struct CryptoDetailView: View {
                     .aspectRatio(contentMode: .fit)
             } placeholder: {
                 Image(systemName: "bitcoinsign.circle.fill")
-                    .font(.system(size: 40))
+                    .font(.system(size: 32))
                     .foregroundColor(.orange)
             }
-            .frame(width: 40, height: 40)
+            .frame(width: 32, height: 32)
             Text(crypto.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
@@ -94,15 +94,20 @@ struct CryptoDetailView: View {
                 
                 Chart(chartData) { point in
                     LineMark(
-                        x: .value("日期", point.date),
-                        y: .value("價格", point.price)
+                        x: .value("Date", point.date),
+                        y: .value("Price", point.price)
                     )
-                    .foregroundStyle(
-                        crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? .green : .red
-                    )
+                    .foregroundStyle(.green)
                     .lineStyle(StrokeStyle(lineWidth: 2))
+                    
+                    PointMark(
+                        x: .value("Date", point.date),
+                        y: .value("Price", point.price)
+                    )
+                    .foregroundStyle(.green)
+                    .symbolSize(20)
                 }
-                .frame(height: 120)
+                .frame(height: 200)
                 .chartXAxis {
                     AxisMarks(values: .stride(by: .day)) { value in
                         AxisGridLine()
@@ -111,7 +116,7 @@ struct CryptoDetailView: View {
                     }
                 }
                 .chartYAxis {
-                    AxisMarks { value in
+                    AxisMarks(position: .leading) { value in
                         AxisGridLine()
                         AxisTick()
                         AxisValueLabel {
@@ -122,7 +127,7 @@ struct CryptoDetailView: View {
                     }
                 }
             } else {
-                Text("載入圖表數據中...")
+                Text("Loading Chart")
                     .font(.caption)
                     .foregroundColor(.orange)
                     .frame(height: 120)

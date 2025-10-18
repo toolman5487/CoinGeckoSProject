@@ -49,7 +49,7 @@ class CryptoDetailViewModel: ObservableObject {
                 case .success(let data):
                     self?.cryptoDetail = data
                 case .failure(let error):
-                    self?.errorMessage = error.localizedDescription
+                    print("CryptoDetail Loading Failure: \(error.localizedDescription)")
                 }
             }
         }
@@ -63,7 +63,7 @@ class CryptoDetailViewModel: ObservableObject {
                 case .success(let data):
                     self?.marketChart = data
                 case .failure(let error):
-                    print("圖表數據載入失敗: \(error.localizedDescription)")
+                    print("Chart Loading Failure: \(error.localizedDescription)")
                 }
             }
         }
