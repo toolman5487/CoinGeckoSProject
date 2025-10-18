@@ -18,6 +18,7 @@
 		15AEF7992EA28FF3000ABDAB /* CryptoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AEF7982EA28FF3000ABDAB /* CryptoDetailView.swift */; };
 		15AEF79E2EA294D2000ABDAB /* CryptoDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AEF79D2EA294D2000ABDAB /* CryptoDetailModel.swift */; };
 		15AEF7A12EA295A4000ABDAB /* CryptoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AEF7A02EA295A4000ABDAB /* CryptoDetailViewModel.swift */; };
+		15B9A68F2EA34DAD00B2888E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B9A68E2EA34DAD00B2888E /* ErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		15AEF7982EA28FF3000ABDAB /* CryptoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailView.swift; sourceTree = "<group>"; };
 		15AEF79D2EA294D2000ABDAB /* CryptoDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailModel.swift; sourceTree = "<group>"; };
 		15AEF7A02EA295A4000ABDAB /* CryptoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailViewModel.swift; sourceTree = "<group>"; };
+		15B9A68E2EA34DAD00B2888E /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -89,6 +91,7 @@
 		15426D922E9E87B9006CB6CF = {
 			isa = PBXGroup;
 			children = (
+				15B9A68C2EA34D8500B2888E /* ErrorView */,
 				15AEF79A2EA29495000ABDAB /* CryptoDetailPage */,
 				151D78622E9FED6A0050B47C /* CryptoPage */,
 				151D785F2E9FEBA40050B47C /* MyPage */,
@@ -148,6 +151,14 @@
 				15AEF7A02EA295A4000ABDAB /* CryptoDetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		15B9A68C2EA34D8500B2888E /* ErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				15B9A68E2EA34DAD00B2888E /* ErrorView.swift */,
+			);
+			path = ErrorView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +251,7 @@
 				151D785C2E9FE9870050B47C /* MainTabBarView.swift in Sources */,
 				151D785E2E9FEB7F0050B47C /* MainHomeView.swift in Sources */,
 				151D78612E9FEBB90050B47C /* MainMyView.swift in Sources */,
+				15B9A68F2EA34DAD00B2888E /* ErrorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
