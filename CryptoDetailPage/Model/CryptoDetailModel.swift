@@ -17,6 +17,7 @@ struct CryptoDetailModel: Codable {
     let links: Links?
     let genesis_date: String?
     let categories: [String]?
+    let sparkline_in_7d: SparklineData?
     
     struct ImageInfo: Codable {
         let thumb: String?
@@ -47,4 +48,20 @@ struct CryptoDetailModel: Codable {
         let subreddit_url: String?
         let twitter_screen_name: String?
     }
+    
+    struct SparklineData: Codable {
+        let price: [Double]?
+    }
+    
+    struct MarketChartData: Codable {
+        let prices: [[Double]]?
+        let market_caps: [[Double]]?
+        let total_volumes: [[Double]]?
+    }
+}
+
+struct ChartDataPoint: Identifiable {
+    let id = UUID()
+    let date: Date
+    let price: Double
 }

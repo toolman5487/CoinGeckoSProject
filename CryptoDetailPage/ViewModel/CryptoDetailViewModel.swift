@@ -10,23 +10,60 @@ import Combine
 
 class CryptoDetailViewModel: ObservableObject {
     @Published var cryptoDetail: CryptoDetailModel?
+    @Published var marketChart: CryptoDetailModel.MarketChartData?
     @Published var isLoading = false
     @Published var errorMessage: String?
     
+    private var timer: Timer?
+    private let updateInterval: TimeInterval = 15.0
+    private var cryptoId: String = ""
+    
+    func startRealTimeUpdates(id: String) {
+        cryptoId = id
+        fetchCryptoDetail(id: id)
+        timer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { [weak self] _ in
+            self?.fetchCryptoDetail(id: id)
+        }
+    }
+    
+    func stopRealTimeUpdates() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    deinit {
+        stopRealTimeUpdates()
+    }
+    
     func fetchCryptoDetail(id: String) {
+        guard !isLoading else { return }
+        
         isLoading = true
         errorMessage = nil
         
-        let endpoint = "coins/\(id)?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
+        let detailEndpoint = "coins/\(id)?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
         
-        APIService.shared.get(endpoint: endpoint, responseModel: CryptoDetailModel.self) { [weak self] result in
+        APIService.shared.get(endpoint: detailEndpoint, responseModel: CryptoDetailModel.self) { [weak self] result in
             DispatchQueue.main.async {
-                self?.isLoading = false
                 switch result {
                 case .success(let data):
                     self?.cryptoDetail = data
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+        
+        let chartEndpoint = "coins/\(id)/market_chart?vs_currency=usd&days=7&interval=daily"
+        
+        APIService.shared.get(endpoint: chartEndpoint, responseModel: CryptoDetailModel.MarketChartData.self) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                switch result {
+                case .success(let data):
+                    self?.marketChart = data
+                case .failure(let error):
+                    print("圖表數據載入失敗: \(error.localizedDescription)")
                 }
             }
         }

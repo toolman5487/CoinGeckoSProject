@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct CryptoDetailView: View {
     let id: String
@@ -13,27 +14,30 @@ struct CryptoDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 if viewModel.isLoading {
                     ProgressView("Loading...")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if let crypto = viewModel.cryptoDetail {
                     headerSection(crypto: crypto)
+                    priceSection(crypto: crypto)
+                    priceChartSection(crypto: crypto)
                 } else if let error = viewModel.errorMessage {
                     ErrorView(error: error)
                 }
             }
             .padding()
         }
-        .navigationTitle("Crypto")
-        .navigationBarTitleDisplayMode(.large)
         .onAppear {
-            viewModel.fetchCryptoDetail(id: id)
+            viewModel.startRealTimeUpdates(id: id)
+        }
+        .onDisappear {
+            viewModel.stopRealTimeUpdates()
         }
     }
     
     private func headerSection(crypto: CryptoDetailModel) -> some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 8) {
             AsyncImage(url: URL(string: crypto.image?.small ?? "")) { image in
                 image
                     .resizable()
@@ -44,20 +48,88 @@ struct CryptoDetailView: View {
                     .foregroundColor(.orange)
             }
             .frame(width: 40, height: 40)
+            Text(crypto.name)
+                .font(.largeTitle)
+                .fontWeight(.bold)
             
-            VStack(alignment: .leading) {
-                Text(crypto.name)
-                    .font(.title)
-                    .fontWeight(.bold)
-                
-                Text(crypto.symbol.uppercased())
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-            }
+            Text(crypto.symbol.uppercased())
+                .font(.title)
+                .foregroundColor(.secondary)
             Spacer()
         }
     }
     
+    private func priceSection(crypto: CryptoDetailModel) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(viewModel.priceUSDText)
+                .font(.title)
+                .fontWeight(.bold)
+            
+            HStack {
+                Image(systemName: crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
+                    .foregroundColor(crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? .green : .red)
+                    .font(.caption)
+                
+                Text(viewModel.change24hText)
+                    .foregroundColor(crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? .green : .red)
+                Text("24h")
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+        }
+    }
+    
+    private func priceChartSection(crypto: CryptoDetailModel) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if let marketChart = viewModel.marketChart,
+               let prices = marketChart.prices,
+               !prices.isEmpty {
+                
+                let chartData = prices.map { priceArray in
+                    ChartDataPoint(
+                        date: Date(timeIntervalSince1970: priceArray[0] / 1000),
+                        price: priceArray[1]
+                    )
+                }
+                
+                Chart(chartData) { point in
+                    LineMark(
+                        x: .value("日期", point.date),
+                        y: .value("價格", point.price)
+                    )
+                    .foregroundStyle(
+                        crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? .green : .red
+                    )
+                    .lineStyle(StrokeStyle(lineWidth: 2))
+                }
+                .frame(height: 120)
+                .chartXAxis {
+                    AxisMarks(values: .stride(by: .day)) { value in
+                        AxisGridLine()
+                        AxisTick()
+                        AxisValueLabel(format: .dateTime.weekday(.abbreviated))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks { value in
+                        AxisGridLine()
+                        AxisTick()
+                        AxisValueLabel {
+                            if let price = value.as(Double.self) {
+                                Text("$\(Int(price/1000))K")
+                            }
+                        }
+                    }
+                }
+            } else {
+                Text("載入圖表數據中...")
+                    .font(.caption)
+                    .foregroundColor(.orange)
+                    .frame(height: 120)
+                    .frame(maxWidth: .infinity)
+            }
+        }
+    }
 }
 
 #Preview {
