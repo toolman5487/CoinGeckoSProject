@@ -27,7 +27,7 @@ struct MainTabBarView: View {
             .tag(Tab.home)
             
             NavigationStack {
-                CryptoDetailView(id: "bitcoin")
+                CryptoDetailView(id: "ethereum")
             }
             .tabItem {
                 Label("Coin", systemImage: "bitcoinsign")

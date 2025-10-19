@@ -97,14 +97,18 @@ struct CryptoDetailView: View {
                         x: .value("Date", point.date),
                         y: .value("Price", point.price)
                     )
-                    .foregroundStyle(.green)
+                    .foregroundStyle(
+                        crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? .green : .red
+                    )
                     .lineStyle(StrokeStyle(lineWidth: 2))
                     
                     PointMark(
                         x: .value("Date", point.date),
                         y: .value("Price", point.price)
                     )
-                    .foregroundStyle(.green)
+                    .foregroundStyle(
+                        crypto.market_data?.price_change_percentage_24h ?? 0 >= 0 ? .green : .red
+                    )
                     .symbolSize(20)
                 }
                 .frame(height: 200)
@@ -127,9 +131,8 @@ struct CryptoDetailView: View {
                     }
                 }
             } else {
-                Text("Loading Chart")
-                    .font(.caption)
-                    .foregroundColor(.orange)
+                Image(systemName: "chart.xyaxis.line")
+                    .foregroundColor(.secondary)
                     .frame(height: 120)
                     .frame(maxWidth: .infinity)
             }
@@ -138,5 +141,5 @@ struct CryptoDetailView: View {
 }
 
 #Preview {
-    CryptoDetailView(id: "bitcoin")
+    CryptoDetailView(id: "ethereum")
 }

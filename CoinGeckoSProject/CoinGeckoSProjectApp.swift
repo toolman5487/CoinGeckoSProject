@@ -12,6 +12,7 @@ struct CoinGeckoSProjectApp: App {
     var body: some Scene {
         WindowGroup {
             MainTabBarView()
+                .preferredColorScheme(.light)
         }
     }
 }
