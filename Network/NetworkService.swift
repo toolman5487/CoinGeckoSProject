@@ -117,7 +117,18 @@ class APIService {
         switch httpResponse.statusCode {
         case 200...299:
             break
+        case 429:
+            print("Rate limit exceeded (429). Please wait before making more requests.")
+            if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                print("Response body: \(responseString)")
+            }
+            completion(.failure(APIError.rateLimitExceeded))
+            return
         default:
+            print("HTTP Error: \(httpResponse.statusCode)")
+            if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                print("Response body: \(responseString)")
+            }
             completion(.failure(APIError.invalidResponse))
             return
         }
@@ -141,4 +152,5 @@ enum APIError: Error {
     case invalidURL
     case invalidResponse
     case noData
+    case rateLimitExceeded
 }

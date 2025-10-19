@@ -81,6 +81,24 @@ struct CryptoDetailView: View {
     
     private func priceChartSection(crypto: CryptoDetailModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Price Chart")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                Spacer()
+                
+                Picker("Time Range", selection: $viewModel.selectedTimeRange) {
+                    ForEach(CryptoDetailViewModel.TimeRange.allCases, id: \.self) { timeRange in
+                        Text(timeRange.displayName).tag(timeRange)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .onChange(of: viewModel.selectedTimeRange) { newValue in
+                    viewModel.changeTimeRange(newValue)
+                }
+            }
+            .padding(.bottom, 8)
+            
             if let marketChart = viewModel.marketChart,
                let prices = marketChart.prices,
                !prices.isEmpty {
@@ -113,10 +131,10 @@ struct CryptoDetailView: View {
                 }
                 .frame(height: 200)
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: .day)) { value in
+                    AxisMarks(values: .stride(by: viewModel.getXAxisStride())) { value in
                         AxisGridLine()
                         AxisTick()
-                        AxisValueLabel(format: .dateTime.weekday(.abbreviated))
+                        AxisValueLabel(format: viewModel.getXAxisFormat())
                     }
                 }
                 .chartYAxis {
@@ -141,5 +159,5 @@ struct CryptoDetailView: View {
 }
 
 #Preview {
-    CryptoDetailView(id: "ethereum")
+    CryptoDetailView(id: "bitcoin")
 }
