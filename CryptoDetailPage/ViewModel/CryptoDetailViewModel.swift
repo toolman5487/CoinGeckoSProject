@@ -22,13 +22,23 @@ class CryptoDetailViewModel: ObservableObject {
     private var lastRequestTime: Date = Date.distantPast
     private let minimumRequestInterval: TimeInterval = 5.0
     
+    private func getUpdateInterval(for timeRange: TimeRange) -> TimeInterval {
+        switch timeRange {
+        case .day:
+            return 300.0
+        case .week:
+            return 3600.0
+        case .month, .quarter, .year:
+            return 86400.0
+        }
+    }
+    
     enum TimeRange: String, CaseIterable {
         case day = "1"
         case week = "7"
         case month = "30"
         case quarter = "90"
         case year = "365"
-        case all = "max"
         
         var displayName: String {
             switch self {
@@ -37,7 +47,6 @@ class CryptoDetailViewModel: ObservableObject {
             case .month: return "30D"
             case .quarter: return "90D"
             case .year: return "1Y"
-            case .all: return "ALL"
             }
         }
     }
@@ -54,8 +63,6 @@ class CryptoDetailViewModel: ObservableObject {
             return .weekOfYear
         case .year:
             return .month
-        case .all:
-            return .month
         }
     }
 
@@ -71,16 +78,16 @@ class CryptoDetailViewModel: ObservableObject {
             return .dateTime.month(.abbreviated)
         case .year:
             return .dateTime.month(.abbreviated)
-        case .all:
-            return .dateTime.year()
         }
     }
     
     func startRealTimeUpdates(id: String) {
         cryptoId = id
-        fetchCryptoDetail(id: id)
-        timer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { [weak self] _ in
-            self?.fetchCryptoDetail(id: id)
+        fetchCryptoDetail(id: id, timeRange: selectedTimeRange)
+        let interval = getUpdateInterval(for: selectedTimeRange)
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            self.fetchCryptoDetail(id: id, timeRange: self.selectedTimeRange)
         }
     }
     
@@ -97,7 +104,6 @@ class CryptoDetailViewModel: ObservableObject {
         guard !isLoading && !isRequestInProgress else { return }
         let timeSinceLastRequest = Date().timeIntervalSince(lastRequestTime)
         guard timeSinceLastRequest >= minimumRequestInterval else {
-            print("Rate limit: Too soon since last request. Waiting...")
             return
         }
         
@@ -135,6 +141,12 @@ class CryptoDetailViewModel: ObservableObject {
                 switch result {
                 case .success(let data):
                     print("Chart data received successfully: \(data)")
+                    if let prices = data.prices, !prices.isEmpty {
+                        let firstDate = Date(timeIntervalSince1970: prices.first![0] / 1000)
+                        let lastDate = Date(timeIntervalSince1970: prices.last![0] / 1000)
+                        print("Data time range: \(firstDate) to \(lastDate)")
+                        print("Data points count: \(prices.count)")
+                    }
                     self?.marketChart = data
                 case .failure(let error):
                     print("Chart Loading Failure: \(error)")
@@ -166,6 +178,12 @@ class CryptoDetailViewModel: ObservableObject {
     
     func changeTimeRange(_ timeRange: TimeRange) {
         selectedTimeRange = timeRange
+        stopRealTimeUpdates()
         fetchCryptoDetail(id: cryptoId, timeRange: timeRange)
+        let interval = getUpdateInterval(for: timeRange)
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            self.fetchCryptoDetail(id: self.cryptoId, timeRange: self.selectedTimeRange)
+        }
     }
 }

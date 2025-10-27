@@ -82,11 +82,6 @@ struct CryptoDetailView: View {
     private func priceChartSection(crypto: CryptoDetailModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("Price Chart")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                Spacer()
-                
                 Picker("Time Range", selection: $viewModel.selectedTimeRange) {
                     ForEach(CryptoDetailViewModel.TimeRange.allCases, id: \.self) { timeRange in
                         Text(timeRange.displayName).tag(timeRange)
